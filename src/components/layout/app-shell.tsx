@@ -50,8 +50,8 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
     navigation[0];
 
   return (
-    <div className="flex min-h-screen bg-background">
-      <aside className="hidden w-72 shrink-0 border-r border-border bg-card lg:block">
+    <div className="flex min-h-screen bg-muted/25">
+      <aside className="hidden w-72 shrink-0 border-r border-border bg-card/95 lg:block">
         <div className="flex h-16 items-center border-b border-border px-6">
           <div className="flex items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-md bg-primary text-primary-foreground">
@@ -88,7 +88,7 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
       </aside>
 
       <div className="flex min-w-0 flex-1 flex-col">
-        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-border bg-background/95 px-4 backdrop-blur sm:px-6 lg:px-8">
+        <header className="sticky top-0 z-20 flex h-16 items-center justify-between border-b border-border bg-background/90 px-4 backdrop-blur sm:px-6 lg:px-8">
           <div className="flex min-w-0 items-center gap-3">
             <div className="flex size-10 items-center justify-center rounded-md border border-border text-muted-foreground lg:hidden">
               <PanelLeft size={20} aria-hidden="true" />
@@ -103,9 +103,10 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
           <ThemeToggle />
         </header>
 
-        <div className="flex flex-1 pb-20 lg:pb-0">{children}</div>
+        <div className="flex flex-1 pb-24 lg:pb-0">{children}</div>
 
-        <nav className="fixed inset-x-0 bottom-0 z-30 grid grid-cols-5 border-t border-border bg-card/95 px-2 py-2 backdrop-blur lg:hidden">
+        <nav className="fixed inset-x-0 bottom-0 z-30 border-t border-border bg-card/95 px-2 pb-[calc(env(safe-area-inset-bottom)+0.5rem)] pt-2 shadow-[0_-12px_30px_rgba(0,0,0,0.08)] backdrop-blur lg:hidden">
+          <div className="grid grid-cols-5 gap-1">
           {mobileNavigation.map((item) => {
             const Icon = item.icon;
             const active = isActivePath(pathname, item.href);
@@ -115,7 +116,7 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  "flex min-w-0 flex-col items-center gap-1 rounded-md px-2 py-1.5 text-xs font-medium text-muted-foreground",
+                  "flex min-h-14 min-w-0 flex-col items-center justify-center gap-1 rounded-lg px-2 text-[11px] font-medium text-muted-foreground transition-colors",
                   active && "bg-primary text-primary-foreground",
                 )}
               >
@@ -124,6 +125,7 @@ export function AppShell({ children }: Readonly<{ children: React.ReactNode }>) 
               </Link>
             );
           })}
+          </div>
         </nav>
       </div>
     </div>

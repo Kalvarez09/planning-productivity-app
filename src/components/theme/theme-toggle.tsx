@@ -2,6 +2,7 @@
 
 import { Monitor, Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useSyncExternalStore } from "react";
 
 const themeOptions = [
   { value: "light", label: "Claro", icon: Sun },
@@ -9,14 +10,23 @@ const themeOptions = [
   { value: "system", label: "Sistema", icon: Monitor },
 ];
 
+function subscribe() {
+  return () => undefined;
+}
+
 export function ThemeToggle() {
   const { theme, setTheme } = useTheme();
+  const mounted = useSyncExternalStore(
+    subscribe,
+    () => true,
+    () => false,
+  );
 
   return (
     <div className="flex rounded-md border border-border bg-card p-1">
       {themeOptions.map((option) => {
         const Icon = option.icon;
-        const isActive = theme === option.value;
+        const isActive = mounted && theme === option.value;
 
         return (
           <button
